@@ -1,0 +1,16 @@
+{
+    "game": {
+        "Minecraft": 432
+    },
+    "section": {
+        "Minecraft": {
+            "Bukkit Plugins": 5,
+            "Modpacks": 4471,
+            "Customization": 4546,
+            "Addons": 4559,
+            "Mods": 6,
+            "Resource Packs": 12,
+            "Worlds": 17
+        }
+    }
+}
