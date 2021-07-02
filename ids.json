@@ -1,6 +1,11 @@
 {
     "game": {
-        "Minecraft": 432
+        "Minecraft": 432,
+        "World of Warcraft": 1,
+        "osu!": 634,
+        "osu": 78018,
+        "StarCraft II": 65,
+        "Kerbal Space Program": 4401
     },
     "section": {
         "Minecraft": {

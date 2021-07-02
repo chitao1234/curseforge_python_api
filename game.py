@@ -8,7 +8,7 @@ def _process_time(iso_time: str) -> datetime:
 
 
 def featured_addon(game_id: int, featured_count: int, popular_count: int, updated_count: int, addon_ids: List[Union[int, None]] = []) -> dict:
-    return _utils.post(_utils.BASE_URL + 'featured', headers=_utils.JSON_HEADER, data=_utils.dumps({"GameId": game_id, "addonIds": addon_ids, "featuredCount": featured_count, "popularCount": popular_count, "updatedCount": updated_count})).text
+    return _utils.loads(_utils.post(_utils.BASE_URL + 'featured', headers=_utils.JSON_HEADER, data=_utils.dumps({"GameId": game_id, "addonIds": addon_ids, "featuredCount": featured_count, "popularCount": popular_count, "updatedCount": updated_count})).text)
 
 
 def database_timestamp() -> datetime:
@@ -19,11 +19,11 @@ def search(game_id: int, section_id: int, query: str = '', index: int = 0, sort:
     url = _utils.BASE_URL + \
           'search?gameId={game_id}&sectionId={section_id}'.format(game_id=game_id, section_id=section_id) + \
           query if 'searchFilter=' + query else '' + \
-          index if 'index=' + index else '' + \
-          sort if 'sort=' + sort else '' + \
-          page_size if 'pageSize=' + page_size else '' + \
+          str(index) if 'index=' + str(index) else '' + \
+          str(sort) if 'sort=' + str(sort) else '' + \
+          str(page_size) if 'pageSize=' + str(page_size) else '' + \
           game_version if 'gameVersion=' + game_version else '' + \
-          category_id if 'categoryId=' + category_id else ''
+          str(category_id) if 'categoryId=' + str(category_id) else ''
     return _utils.loads(_utils.get(url).text)
 
 
