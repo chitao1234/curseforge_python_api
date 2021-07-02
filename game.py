@@ -19,12 +19,12 @@ def search(game_id: int, section_id: int, query: str = '', index: int = 0, sort:
     # default value of page_size is 50
     url = _utils.BASE_URL + \
           'search?gameId={game_id}&sectionId={section_id}'.format(game_id=game_id, section_id=section_id) + \
-          query if 'searchFilter=' + query else '' + \
-          str(index) if 'index=' + str(index) else '' + \
-          str(sort) if 'sort=' + str(sort) else '' + \
-          str(page_size) if 'pageSize=' + str(page_size) else '' + \
-          game_version if 'gameVersion=' + game_version else '' + \
-          str(category_id) if 'categoryId=' + str(category_id) else ''
+          ('searchFilter=' + query) if query else '' + \
+          ('index=' + str(index)) if index else '' + \
+          ('sort=' + str(sort)) if sort else '' + \
+          ('pageSize=' + str(page_size)) if page_size else '' + \
+          ('gameVersion=' + game_version) if game_version else '' + \
+          ('categoryId=' + str(category_id)) if category_id else ''
     return _utils.loads(_utils.get(url).text)
 
 
