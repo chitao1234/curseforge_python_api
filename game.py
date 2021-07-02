@@ -7,24 +7,31 @@ def _process_time(iso_time: str) -> datetime:
     return datetime.strptime(iso_time, '%Y-%m-%dT%H:%M:%S.%fZ')
 
 
-def featured_addon(game_id: int, featured_count: int, popular_count: int, updated_count: int, addon_ids: List[Union[int, None]] = []) -> dict:
-    return _utils.loads(_utils.post(_utils.BASE_URL + 'featured', headers=_utils.JSON_HEADER, data=_utils.dumps({"GameId": game_id, "addonIds": addon_ids, "featuredCount": featured_count, "popularCount": popular_count, "updatedCount": updated_count})).text)
+def featured_addon(game_id: int, featured_count: int, popular_count: int, updated_count: int,
+                   addon_ids: List[Union[int, None]] = []) -> dict:
+    return _utils.loads(_utils.post(_utils.BASE_URL + 'featured', headers=_utils.JSON_HEADER, data=_utils.dumps(
+        {"GameId": game_id, "addonIds": addon_ids, "featuredCount": featured_count, "popularCount": popular_count,
+         "updatedCount": updated_count})).text)
 
 
 def database_timestamp() -> datetime:
     return _process_time(_utils.get(_utils.BASE_URL + 'timestamp').text)
 
 
-def search(game_id: int, section_id: int, query: str = '', index: int = 0, sort: int = 0, page_size: int = 0, game_version: str = '', category_id: int = 0) -> list:
+def search(game_id: int, section_id: int, query: str = '', index: int = 0, sort: int = 0, page_size: int = 0,
+           game_version: str = '', category_id: int = 0) -> list:
     # default value of page_size is 50
-    url = _utils.BASE_URL + \
-          'search?gameId={game_id}&sectionId={section_id}'.format(game_id=game_id, section_id=section_id) + \
-          ('searchFilter=' + query) if query else '' + \
-          ('index=' + str(index)) if index else '' + \
-          ('sort=' + str(sort)) if sort else '' + \
-          ('pageSize=' + str(page_size)) if page_size else '' + \
-          ('gameVersion=' + game_version) if game_version else '' + \
-          ('categoryId=' + str(category_id)) if category_id else ''
+    params = {k: v for k, v in {
+        'gameId': game_id,
+        'sectionId': section_id,
+        'searchFilter': query,
+        'index': index,
+        'sort': sort,
+        'pageSize': page_size,
+        'gameVersion': game_version,
+        'categoryId': category_id
+    }.items() if v}
+    url = _utils.BASE_URL + 'search?' + _utils.urlencode(params)
     return _utils.loads(_utils.get(url).text)
 
 

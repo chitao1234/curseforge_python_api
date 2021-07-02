@@ -1,6 +1,7 @@
 from requests import get as _get, post as _post
 from json import loads as _loads
 from json import dumps
+from urllib.parse import urlencode
 
 
 BASE_URL = 'https://addons-ecs.forgesvc.net/api/v2/addon/'
