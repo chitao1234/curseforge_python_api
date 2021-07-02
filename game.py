@@ -16,12 +16,13 @@ def database_timestamp() -> datetime:
 
 
 def search(game_id: int, section_id: int, query: str = '', index: int = 0, sort: int = 0, page_size: int = 0, game_version: str = '', category_id: int = 0) -> list:
+    # default value of page_size is 50
     url = _utils.BASE_URL + \
           'search?gameId={game_id}&sectionId={section_id}'.format(game_id=game_id, section_id=section_id) + \
           query if 'searchFilter=' + query else '' + \
           str(index) if 'index=' + str(index) else '' + \
           str(sort) if 'sort=' + str(sort) else '' + \
-          str(page_size) if 'pageSize=' + str(page_size) else '50' + \
+          str(page_size) if 'pageSize=' + str(page_size) else '' + \
           game_version if 'gameVersion=' + game_version else '' + \
           str(category_id) if 'categoryId=' + str(category_id) else ''
     return _utils.loads(_utils.get(url).text)
