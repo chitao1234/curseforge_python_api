@@ -21,7 +21,7 @@ def search(game_id: int, section_id: int, query: str = '', index: int = 0, sort:
           query if 'searchFilter=' + query else '' + \
           str(index) if 'index=' + str(index) else '' + \
           str(sort) if 'sort=' + str(sort) else '' + \
-          str(page_size) if 'pageSize=' + str(page_size) else '' + \
+          str(page_size) if 'pageSize=' + str(page_size) else '50' + \
           game_version if 'gameVersion=' + game_version else '' + \
           str(category_id) if 'categoryId=' + str(category_id) else ''
     return _utils.loads(_utils.get(url).text)
